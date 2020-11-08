@@ -1,10 +1,48 @@
 import React from "react";
+import Order_Form from "./components/Order_Form"
+import Pizza from "./Assets/Pizza.jpg"
+import Ideas from "./components/Ideas"
+
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavbarText
+} from 'reactstrap';
+import "./App.css"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 
 const App = () => {
   return (
     <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
+    <div className="top">
+      
+      <Navbar className="navbar">
+          <Link to="/">LambdaEats</Link>
+          <Link to="/order">Order</Link>
+        </Navbar>
+      <img className="pizza" src={Pizza}></img>
+    </div>
+
+    <div className="bottom">
+      <Route exact path='/' component={Ideas} />
+      <Route path='/order' component={Order_Form} />
+    </div>
+      
     </>
   );
 };
