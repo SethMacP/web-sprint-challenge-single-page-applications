@@ -36,3 +36,40 @@
     transform: rotate(360deg);
   }
 }
+/* Begin own Styles */
+/* Begin own Styles */
+/* Begin own Styles */
+.top{
+  text-align: center;
+}
+.bottom {
+  display:flex;
+  flex-flow: column nowrap;
+  text-align: center;
+  justify-content: center;
+  margin: 20px auto;
+  width: 90%;
+  height: 250px;
+}
+.idea_holder{
+  display:flex;
+  flex-flow: row nowrap;
+  margin: 0 auto;
+  background-color: blanchedalmond;
+}
+.idea{
+  background-color: blanchedalmond;
+}
+.pizza_form_holder{
+text-align: center;
+  
+}
+.Label{
+  text-align: center;
+  color:blue;
+
+}
+.pizza{
+  width: 100%;
+}
+
