@@ -1,9 +1,11 @@
 import React, {useState} from "react"
+import axios from 'axios'
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
+import * as Yup from 'yup'
 
 
 export default function Order_Form () {
+    const [ orders, setOrders ] = useState([]);
     const [ formState, setFormState ] = useState({
         name: "" ,
         size: "" ,
@@ -20,12 +22,13 @@ export default function Order_Form () {
         instructions: "" ,
     })
     const handleChanges = (e) => {
+        e.persist()
+        validate(e)
         console.log("changes to: " , e)
         setFormState( { ...formState , [e.target.name] : e.target.value } )
     }
     const handleChanges2 = (e) => {
-        console.log("changes to: " , e.target.name)
-        console.log("changed:", e.target.checked)
+        validate(e)
         if (e.target.checked){
             e.target.removeAttribute('checked');
         }
@@ -38,6 +41,16 @@ export default function Order_Form () {
         e.preventDefault();
        console.log("Form was submitted: " , formState); 
        //Post will go here
+        axios
+            .post("https://reqres.in/api/users", formState)
+            .then(res => {
+                console.log("Successful Submit: ", res.data )
+                setOrders([res.data,...orders])
+            })
+            .catch(err=>{
+                console.log("err: ",err)
+            })
+       //
        setFormState({
         name: "" ,
         size: "" ,
@@ -46,7 +59,41 @@ export default function Order_Form () {
        })
     }
 
+const formSchema = Yup.object().shape({
+    name: Yup
+        .string()
+        .required()
+        .min(2, "You must enter atleast 2 characters for your name"),
+    size: Yup
+        .string(),
+    top_pep: Yup
+        .boolean(),
+    top_ham: Yup
+        .boolean(),
+    top_sau: Yup
+        .boolean(),
+    top_anc: Yup
+        .boolean(),
+    instructions: Yup
+        .string()
 
+})
+const validate = (e) => {
+    Yup
+        .reach(formSchema, e.target.name)
+        .validate(e.target.value)
+        .then(valid =>{
+            console.log('valid', valid)
+            setErrorState({...errorState, [e.target.name]: ""
+        })
+        .catch(error=>{
+            console.log('error', error)
+            setErrorState({
+                ...errorState,[e.target.name]:errorState.errors[0]
+            })
+        })
+        })
+}
 
 
 
@@ -171,7 +218,10 @@ return(
             </Label>
         </FormGroup>
 
-        <Button>ORDER NOW!</Button>
+        <Button
+        id="submitBtn"
+        data-cy="submitBtn"
+        >ORDER NOW!</Button>
 
 
     </Form>

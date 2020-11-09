@@ -33,14 +33,14 @@ const App = () => {
       
       <Navbar className="navbar">
           <Link to="/">LambdaEats</Link>
-          <Link to="/order">Order</Link>
+          <Link to="/pizza">Order</Link>
         </Navbar>
       <img className="pizza" src={Pizza}></img>
     </div>
 
     <div className="bottom">
       <Route exact path='/' component={Ideas} />
-      <Route path='/order' component={Order_Form} />
+      <Route path='/pizza' component={Order_Form} />
     </div>
       
     </>
